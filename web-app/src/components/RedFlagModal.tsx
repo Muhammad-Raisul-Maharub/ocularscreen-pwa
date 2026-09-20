@@ -37,21 +37,21 @@ export function RedFlagModal({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg bg-slate-900 border border-red-500/40 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200 safe-pb">
+      <div className="relative w-full max-w-lg bg-slate-900 border border-red-500/40 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[88dvh] sm:max-h-[90dvh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 bg-red-950/40 border-b border-red-500/20">
-          <div className="flex items-center gap-2.5 text-red-400">
-            <div className="p-1.5 rounded-lg bg-red-500/20 text-red-400">
-              <ShieldAlert className="w-6 h-6" />
+        <div className="flex items-center justify-between px-3.5 sm:px-5 py-3 sm:py-4 bg-red-950/40 border-b border-red-500/20">
+          <div className="flex items-center gap-2 sm:gap-2.5 text-red-400 min-w-0">
+            <div className="p-1.5 rounded-lg bg-red-500/20 text-red-400 shrink-0">
+              <ShieldAlert className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <h2 className="font-bold text-base text-white tracking-tight">
+            <h2 className="font-bold text-sm sm:text-base text-white tracking-tight truncate">
               Ophthalmic Red Flag Triage
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-all duration-150 active:scale-[0.98] min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-all duration-150 active:scale-[0.98] min-w-[40px] sm:min-w-[44px] min-h-[40px] sm:min-h-[44px] flex items-center justify-center shrink-0 ml-2"
             title="Close Red Flag Modal"
           >
             <X className="w-5 h-5" />
@@ -59,8 +59,8 @@ export function RedFlagModal({
         </div>
 
         {/* Content */}
-        <div className="p-5 overflow-y-auto space-y-4">
-          <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl flex items-start gap-3">
+        <div className="p-3.5 sm:p-5 overflow-y-auto space-y-3.5 sm:space-y-4">
+          <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl flex items-start gap-2.5 sm:gap-3">
             <AlertTriangle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
             <p className="text-xs text-red-200 leading-relaxed">
               If any of the following symptoms are present, <strong className="font-semibold text-white">do not rely on an automated screening app</strong>. 

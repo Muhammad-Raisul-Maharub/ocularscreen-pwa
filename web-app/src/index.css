@@ -5,11 +5,23 @@
 @layer base {
   :root {
     color-scheme: dark;
+    --dvh: 100dvh;
   }
   
+  html {
+    height: 100%;
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
     @apply bg-navy-950 text-slate-100 antialiased overflow-x-hidden;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    min-height: 100%;
+    min-height: 100dvh;
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
@@ -51,13 +63,13 @@
   animation: scan-line 2.5s ease-in-out infinite alternate;
 }
 
-/* Custom sleek scrollbar */
+/* Custom sleek non-intrusive scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #0b1120;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: #1e293b;
@@ -65,4 +77,13 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #334155;
+}
+
+/* Safe-area insets utilities */
+.safe-pb {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+}
+
+.safe-pt {
+  padding-top: max(0.5rem, env(safe-area-inset-top, 0.5rem));
 }

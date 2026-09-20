@@ -141,11 +141,11 @@ export function CameraCapture({
   return (
     <div className="w-full max-w-lg mx-auto flex flex-col items-center">
       {/* Red flag notice banner */}
-      <div className="w-full mb-3 px-3.5 py-2.5 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-between text-xs min-h-[44px]">
+      <div className="w-full mb-3 px-3 sm:px-3.5 py-2 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-between text-xs min-h-[44px] gap-2">
         <span className="text-amber-300 font-medium">Severe pain or sudden vision loss?</span>
         <button
           onClick={onOpenRedFlags}
-          className="text-amber-400 hover:text-amber-300 underline font-semibold transition-colors min-h-[44px] flex items-center px-1"
+          className="text-amber-400 hover:text-amber-300 underline font-semibold transition-colors min-h-[44px] flex items-center px-1 whitespace-nowrap"
         >
           Check Red Flags
         </button>
@@ -211,30 +211,55 @@ export function CameraCapture({
       </div>
 
       {/* Bottom Action Controls */}
-      <div className="w-full mt-4 flex items-center justify-between px-2 gap-4">
-        {/* Upload Fallback Button */}
-        <label className="flex-1 cursor-pointer inline-flex items-center justify-center gap-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl text-xs font-semibold border border-slate-800 transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-h-[44px]">
-          <Upload className="w-4 h-4 text-clinical-400" />
-          <span>Upload Image</span>
-          <input
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleFileUpload}
-          />
-        </label>
+      <div className="w-full mt-4">
+        {hasCamera === false ? (
+          <label className="w-full cursor-pointer inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-gradient-to-r from-clinical-600 to-teal-500 hover:from-clinical-500 hover:to-teal-400 text-white font-semibold text-sm rounded-xl shadow-lg shadow-clinical-600/30 transition-all active:scale-[0.98] min-h-[48px]">
+            <Upload className="w-5 h-5" />
+            <span>Select Image From Device</span>
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleFileUpload}
+            />
+          </label>
+        ) : (
+          <div className="w-full flex items-center justify-between px-3 sm:px-6 py-2 bg-slate-950/60 border border-slate-800/80 rounded-2xl backdrop-blur-sm">
+            {/* Upload Button */}
+            <label className="cursor-pointer inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl text-xs font-medium border border-slate-800 transition-all duration-150 active:scale-[0.98] min-h-[44px] min-w-[44px]">
+              <Upload className="w-4 h-4 text-clinical-400" />
+              <span className="hidden xs:inline">Upload</span>
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleFileUpload}
+              />
+            </label>
 
-        {/* Shutter Button */}
-        {hasCamera && (
-          <button
-            onClick={handleShutterCapture}
-            className="p-1 rounded-full bg-gradient-to-r from-clinical-500 to-teal-400 shadow-xl shadow-clinical-500/25 transition-all duration-150 active:scale-95 hover:brightness-110 min-w-[56px] min-h-[56px] flex items-center justify-center"
-            title="Take Photo"
-          >
-            <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center border-4 border-slate-950">
-              <Camera className="w-5 h-5 text-slate-900" />
-            </div>
-          </button>
+            {/* Shutter Button */}
+            <button
+              onClick={handleShutterCapture}
+              className="p-1 rounded-full bg-gradient-to-r from-clinical-500 to-teal-400 shadow-xl shadow-clinical-500/30 transition-all duration-150 active:scale-95 hover:brightness-110 min-w-[64px] min-h-[64px] flex items-center justify-center"
+              title="Take Photo"
+              aria-label="Take Photo"
+            >
+              <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center border-4 border-slate-950">
+                <Camera className="w-6 h-6 text-slate-900" />
+              </div>
+            </button>
+
+            {/* Switch Camera */}
+            <button
+              onClick={switchFacingMode}
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl text-xs font-medium border border-slate-800 transition-all duration-150 active:scale-[0.98] min-h-[44px] min-w-[44px]"
+              title="Switch Camera (Front/Rear)"
+              aria-label="Switch Camera (Front/Rear)"
+            >
+              <SwitchCamera className="w-4 h-4 text-clinical-400" />
+              <span className="hidden xs:inline">Flip</span>
+            </button>
+          </div>
         )}
       </div>
     </div>

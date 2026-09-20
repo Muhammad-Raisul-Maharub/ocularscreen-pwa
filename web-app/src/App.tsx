@@ -8,6 +8,7 @@ import { ResultCard } from './components/ResultCard';
 import { LatencyPanel } from './components/LatencyPanel';
 import { BenchmarkModal } from './components/BenchmarkModal';
 import { GuideModal } from './components/GuideModal';
+import { useDeviceDetection } from './hooks/useDeviceDetection';
 
 import { sessionManager, ModelLoadTelemetry, ExecutionBackend } from './inference/session';
 import { preprocessImageForInference } from './inference/preprocess';
@@ -18,6 +19,7 @@ import { latencyTracker, LatencyRecord } from './metrics/latencyTracker';
 type AppStep = 'welcome' | 'capture' | 'quality' | 'inferring' | 'result';
 
 export function App() {
+  const device = useDeviceDetection();
   const [currentStep, setCurrentStep] = useState<AppStep>('welcome');
   const [isRedFlagModalOpen, setIsRedFlagModalOpen] = useState(false);
   const [isBenchmarkModalOpen, setIsBenchmarkModalOpen] = useState(false);
@@ -141,57 +143,59 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-navy-950 text-slate-100">
+    <div className="min-h-[100dvh] flex flex-col bg-navy-950 text-slate-100 selection:bg-clinical-500 selection:text-white">
       {/* Top Navigation Header */}
-      <header className="sticky top-0 z-30 w-full bg-slate-950/85 backdrop-blur-md border-b border-slate-800">
-        <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2 sm:py-0 sm:h-16 flex flex-wrap items-center justify-between gap-2">
+      <header className="sticky top-0 z-30 w-full bg-slate-950/90 backdrop-blur-md border-b border-slate-800/90 safe-pt">
+        <div className="max-w-4xl mx-auto px-2.5 sm:px-4 py-2 sm:py-0 sm:h-16 flex items-center justify-between gap-1.5 sm:gap-2">
           {/* Brand */}
           <button
             onClick={() => setCurrentStep('welcome')}
-            className="flex items-center gap-2 text-left group min-h-[44px]"
+            className="flex items-center gap-1.5 sm:gap-2 text-left group min-h-[44px] shrink-0"
             title="Go to Welcome Screen"
           >
             <div className="w-8 h-8 rounded-lg bg-clinical-600 flex items-center justify-center text-white shadow-md shadow-clinical-600/30 group-hover:bg-clinical-500 transition-all duration-150 active:scale-[0.98]">
-              <Eye className="w-5 h-5" />
+              <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <span className="font-bold text-sm tracking-tight text-white flex items-center gap-1.5">
+              <span className="font-bold text-xs sm:text-sm tracking-tight text-white flex items-center gap-1 sm:gap-1.5">
                 OcularScreen
-                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-clinical-500/20 text-clinical-300 font-normal border border-clinical-500/30">
-                  v1.0
-                </span>
+                {!device.isSmallMobile && (
+                  <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-clinical-500/20 text-clinical-300 font-normal border border-clinical-500/30">
+                    v1.0
+                  </span>
+                )}
               </span>
             </div>
           </button>
 
           {/* Interactive Dual-Backend Toggle (WebGPU <-> WASM CPU) */}
-          <div className="flex items-center gap-2">
-            <div className="inline-flex items-center p-1 rounded-xl bg-slate-900 border border-slate-800 shadow-inner">
+          <div className="flex items-center gap-1 sm:gap-2">
+            <div className="inline-flex items-center p-0.5 sm:p-1 rounded-xl bg-slate-900 border border-slate-800 shadow-inner">
               <button
                 onClick={() => handleBackendToggle('webgpu')}
                 disabled={isSwitchingBackend}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all duration-150 active:scale-[0.98] min-h-[38px] ${
+                className={`inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg text-[11px] sm:text-xs font-semibold font-mono transition-all duration-150 active:scale-[0.98] min-h-[36px] sm:min-h-[38px] ${
                   activeBackend === 'webgpu'
                     ? 'bg-gradient-to-r from-clinical-600 to-teal-500 text-white shadow-md'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
                 }`}
                 title="Execute via WebGPU hardware acceleration"
               >
-                <Zap className="w-3.5 h-3.5 text-amber-300" />
-                <span>WebGPU</span>
+                <Zap className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+                <span>{device.isMobile ? 'GPU' : 'WebGPU'}</span>
               </button>
               <button
                 onClick={() => handleBackendToggle('wasm')}
                 disabled={isSwitchingBackend}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all duration-150 active:scale-[0.98] min-h-[38px] ${
+                className={`inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg text-[11px] sm:text-xs font-semibold font-mono transition-all duration-150 active:scale-[0.98] min-h-[36px] sm:min-h-[38px] ${
                   activeBackend === 'wasm'
                     ? 'bg-gradient-to-r from-clinical-600 to-teal-500 text-white shadow-md'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
                 }`}
                 title="Execute via multi-threaded WASM CPU"
               >
-                <Cpu className="w-3.5 h-3.5 text-sky-300" />
-                <span>WASM CPU</span>
+                <Cpu className="w-3.5 h-3.5 text-sky-300 shrink-0" />
+                <span>{device.isMobile ? 'CPU' : 'WASM CPU'}</span>
               </button>
             </div>
 
@@ -203,40 +207,43 @@ export function App() {
             )}
           </div>
 
-          {/* Quick Header Actions */}
-          <div className="flex items-center gap-2">
+          {/* Quick Header Actions with min 44px touch targets */}
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
             <button
               onClick={() => setIsGuideModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-h-[44px]"
+              className="inline-flex items-center justify-center p-2 sm:px-2.5 sm:py-2 rounded-lg bg-slate-900 sm:bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-800 sm:border-slate-700 text-xs font-medium transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-w-[38px] sm:min-w-0 min-h-[38px] sm:min-h-[44px]"
               title="Clinical Methodology & Technical Guide"
+              aria-label="Clinical Methodology & Technical Guide"
             >
-              <BookOpen className="w-4 h-4 text-clinical-400" />
-              <span className="hidden md:inline">Guide & Methodology</span>
+              <BookOpen className="w-4 h-4 text-clinical-400 shrink-0" />
+              {!device.isMobile && <span className="ml-1.5">Guide & Methodology</span>}
             </button>
 
             <button
               onClick={() => setIsRedFlagModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-medium transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-h-[44px]"
+              className="inline-flex items-center justify-center p-2 sm:px-2.5 sm:py-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-medium transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-w-[38px] sm:min-w-0 min-h-[38px] sm:min-h-[44px]"
               title="Clinical Red Flag Symptoms"
+              aria-label="Clinical Red Flag Symptoms"
             >
-              <ShieldAlert className="w-4 h-4" />
-              <span className="hidden sm:inline">Red Flags</span>
+              <ShieldAlert className="w-4 h-4 shrink-0" />
+              {!device.isMobile && <span className="ml-1.5">Red Flags</span>}
             </button>
 
             <button
               onClick={() => setIsBenchmarkModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs font-medium transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-h-[44px]"
+              className="inline-flex items-center justify-center p-2 sm:px-2.5 sm:py-2 rounded-lg bg-slate-900 sm:bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-800 sm:border-slate-700 text-xs font-medium transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-w-[38px] sm:min-w-0 min-h-[38px] sm:min-h-[44px]"
               title="Inference Benchmark & Profiler"
+              aria-label="Inference Benchmark & Profiler"
             >
-              <Gauge className="w-4 h-4 text-clinical-400" />
-              <span className="hidden sm:inline">Benchmark</span>
+              <Gauge className="w-4 h-4 text-clinical-400 shrink-0" />
+              {!device.isMobile && <span className="ml-1.5">Benchmark</span>}
             </button>
           </div>
         </div>
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-4xl w-full mx-auto p-4 flex flex-col justify-center">
+      <main className="flex-1 max-w-4xl w-full mx-auto px-3 sm:px-4 py-4 sm:py-6 flex flex-col justify-center">
         {/* Error Alert if any */}
         {inferenceError && (
           <div className="mb-4 max-w-lg mx-auto w-full p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-xs text-red-300 flex items-center justify-between">

@@ -22,26 +22,26 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200 safe-pb">
+      <div className="relative w-full max-w-2xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[88dvh] sm:max-h-[90dvh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 bg-slate-950/80 border-b border-slate-800">
-          <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-clinical-500/20 text-clinical-400">
-              <BookOpen className="w-6 h-6" />
+        <div className="flex items-center justify-between px-3.5 sm:px-5 py-3 sm:py-4 bg-slate-950/80 border-b border-slate-800">
+          <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+            <div className="p-1.5 rounded-lg bg-clinical-500/20 text-clinical-400 shrink-0">
+              <BookOpen className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <div>
-              <h2 className="font-bold text-base text-white tracking-tight">
+            <div className="min-w-0">
+              <h2 className="font-bold text-sm sm:text-base text-white tracking-tight truncate">
                 Clinical Methodology & Technical Guide
               </h2>
-              <p className="text-[11px] text-slate-400 font-mono">
+              <p className="text-[10px] sm:text-[11px] text-slate-400 font-mono truncate">
                 Academic Translational Research Instrument &bull; MobileNetV3-Small Reference
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-all duration-150 active:scale-[0.98] min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-all duration-150 active:scale-[0.98] min-w-[40px] sm:min-w-[44px] min-h-[40px] sm:min-h-[44px] flex items-center justify-center shrink-0 ml-2"
             title="Close Guide"
           >
             <X className="w-5 h-5" />
@@ -49,7 +49,7 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
         </div>
 
         {/* Accordions Content */}
-        <div className="p-5 overflow-y-auto space-y-3">
+        <div className="p-3.5 sm:p-5 overflow-y-auto space-y-2.5 sm:space-y-3">
           {/* A. What This App Is */}
           <div className="rounded-xl border border-slate-800 bg-slate-950/60 overflow-hidden transition-all">
             <button

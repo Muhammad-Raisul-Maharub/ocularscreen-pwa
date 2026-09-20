@@ -71,19 +71,19 @@ export function BenchmarkModal({ isOpen, onClose }: BenchmarkModalProps) {
   const paper = CANONICAL_BENCHMARK_CONFIG.paperBenchmark;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200 safe-pb">
+      <div className="relative w-full max-w-xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[88dvh] sm:max-h-[90dvh]">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-5 py-4 bg-slate-950/80 border-b border-slate-800">
-          <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-clinical-500/20 text-clinical-400">
-              <Gauge className="w-6 h-6" />
+        <div className="flex items-center justify-between px-3.5 sm:px-5 py-3 sm:py-4 bg-slate-950/80 border-b border-slate-800">
+          <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+            <div className="p-1.5 rounded-lg bg-clinical-500/20 text-clinical-400 shrink-0">
+              <Gauge className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <div>
-              <h2 className="font-bold text-sm sm:text-base text-white tracking-tight">
+            <div className="min-w-0">
+              <h2 className="font-bold text-xs sm:text-base text-white tracking-tight truncate">
                 Target Reference Benchmark (Frozen Baseline)
               </h2>
-              <p className="text-[11px] text-slate-400 font-mono tabular-nums">
+              <p className="text-[10px] sm:text-[11px] text-slate-400 font-mono tabular-nums truncate">
                 Canonical Validation Baseline: 96.33% Acc | 100% Spec | 94.87% Sens | 1.59 ms ONNX CPU Proxy
               </p>
             </div>
@@ -91,7 +91,7 @@ export function BenchmarkModal({ isOpen, onClose }: BenchmarkModalProps) {
           <button
             onClick={onClose}
             disabled={isRunning}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-all duration-150 active:scale-[0.98] disabled:opacity-50 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-all duration-150 active:scale-[0.98] disabled:opacity-50 min-w-[40px] sm:min-w-[44px] min-h-[40px] sm:min-h-[44px] flex items-center justify-center shrink-0 ml-2"
             title="Close Benchmark Modal"
           >
             <X className="w-5 h-5" />
@@ -99,9 +99,9 @@ export function BenchmarkModal({ isOpen, onClose }: BenchmarkModalProps) {
         </div>
 
         {/* Modal Body */}
-        <div className="p-5 overflow-y-auto space-y-5">
+        <div className="p-3.5 sm:p-5 overflow-y-auto space-y-4 sm:space-y-5">
           {/* Baseline Comparison Grid (Canonical Manuscript Table II) */}
-          <div className="p-4 rounded-xl bg-slate-950/90 border border-clinical-500/30 space-y-3">
+          <div className="p-3.5 sm:p-4 rounded-xl bg-slate-950/90 border border-clinical-500/30 space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5 text-xs font-semibold text-clinical-300">
                 <BookOpen className="w-4 h-4 text-clinical-400" />
@@ -254,24 +254,24 @@ export function BenchmarkModal({ isOpen, onClose }: BenchmarkModalProps) {
         </div>
 
         {/* Modal Footer */}
-        <div className="px-5 py-3.5 bg-slate-950/80 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
+        <div className="px-3.5 sm:px-5 py-3 sm:py-3.5 bg-slate-950/80 border-t border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
+          <div className="flex flex-wrap items-center gap-2">
             {report && !isRunning && (
               <>
                 <button
                   onClick={handleDownloadCSV}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-emerald-400 border border-slate-700 transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-h-[44px]"
+                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-emerald-400 border border-slate-700 transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-h-[44px]"
                   title="Download benchmark CSV matching evaluation reporting schema"
                 >
-                  <Download className="w-4 h-4" />
-                  <span>Download Benchmark CSV</span>
+                  <Download className="w-4 h-4 shrink-0" />
+                  <span>Download CSV</span>
                 </button>
                 <button
                   onClick={handleDownloadJSON}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 border border-slate-700 transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-h-[44px]"
+                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 border border-slate-700 transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-h-[44px]"
                   title="Export JSON report"
                 >
-                  <Download className="w-4 h-4 text-clinical-400" />
+                  <Download className="w-4 h-4 text-clinical-400 shrink-0" />
                   <span>Export JSON</span>
                 </button>
               </>
@@ -282,7 +282,7 @@ export function BenchmarkModal({ isOpen, onClose }: BenchmarkModalProps) {
             <button
               onClick={onClose}
               disabled={isRunning}
-              className="px-4 py-2 text-xs font-medium text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-all duration-150 active:scale-[0.98] disabled:opacity-50 min-h-[44px] flex items-center justify-center"
+              className="flex-1 sm:flex-none px-4 py-2 text-xs font-medium text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-all duration-150 active:scale-[0.98] disabled:opacity-50 min-h-[44px] flex items-center justify-center"
             >
               Close
             </button>
@@ -290,7 +290,7 @@ export function BenchmarkModal({ isOpen, onClose }: BenchmarkModalProps) {
             <button
               onClick={handleStartBenchmark}
               disabled={isRunning}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-clinical-600 hover:bg-clinical-500 disabled:bg-slate-700 text-white rounded-lg text-xs font-semibold shadow transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-h-[44px]"
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2 bg-clinical-600 hover:bg-clinical-500 disabled:bg-slate-700 text-white rounded-lg text-xs font-semibold shadow transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-h-[44px]"
             >
               {isRunning ? (
                 <>

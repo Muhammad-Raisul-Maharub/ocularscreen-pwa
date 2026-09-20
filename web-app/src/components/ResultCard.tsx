@@ -94,11 +94,19 @@ export function ResultCard({
         </div>
 
         {/* Operating Threshold Comparison Slider */}
-        <div className="space-y-1.5 p-3.5 bg-slate-950/60 rounded-xl border border-slate-800/80">
-          <div className="flex justify-between text-xs font-mono tabular-nums">
-            <span className="text-slate-400">0.00 (Non-Conjunctivitis)</span>
-            <span className="text-amber-400 font-semibold">&tau;* = {threshold.toFixed(4)}</span>
-            <span className="text-slate-400">1.00 (Conjunctivitis)</span>
+        <div className="space-y-1.5 p-3 sm:p-3.5 bg-slate-950/60 rounded-xl border border-slate-800/80">
+          <div className="flex justify-between items-center text-[11px] sm:text-xs font-mono tabular-nums">
+            <span className="text-slate-400">
+              <span className="hidden sm:inline">0.00 (Non-Conjunctivitis)</span>
+              <span className="sm:hidden">0.00 (Neg)</span>
+            </span>
+            <span className="text-amber-400 font-semibold text-xs sm:text-sm">
+              &tau;* = {threshold.toFixed(4)}
+            </span>
+            <span className="text-slate-400">
+              <span className="hidden sm:inline">1.00 (Conjunctivitis)</span>
+              <span className="sm:hidden">1.00 (Pos)</span>
+            </span>
           </div>
 
           <div className="relative w-full h-3 bg-slate-800 rounded-full overflow-hidden">
@@ -117,7 +125,7 @@ export function ResultCard({
             />
           </div>
 
-          <div className="flex items-center justify-between text-[11px] text-slate-400 pt-0.5">
+          <div className="flex flex-col xs:flex-row xs:items-center justify-between text-[11px] text-slate-400 pt-0.5 gap-0.5 sm:gap-0">
             <span>Score Position: <strong className="text-white font-mono tabular-nums">{score.toFixed(4)}</strong></span>
             <span className={isPositive ? 'text-rose-400 font-semibold' : 'text-emerald-400 font-semibold'}>
               {isPositive ? 'Above Threshold (Positive)' : 'Below Threshold (Negative)'}
@@ -127,7 +135,7 @@ export function ResultCard({
 
         {/* Standardized Referral Language */}
         <div
-          className={`p-4 rounded-xl border space-y-2 ${
+          className={`p-3.5 sm:p-4 rounded-xl border space-y-2 ${
             isPositive
               ? 'bg-rose-500/10 border-rose-500/20 text-rose-100'
               : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-100'
@@ -149,11 +157,11 @@ export function ResultCard({
           </p>
         </div>
 
-        {/* Action Buttons with 44px min touch target and active scaling */}
-        <div className="flex items-center gap-3 pt-2">
+        {/* Action Buttons with 46px min touch target and active scaling */}
+        <div className="flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3 pt-2">
           <button
             onClick={onReset}
-            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold border border-slate-700 transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-h-[44px]"
+            className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold border border-slate-700 transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-h-[46px]"
           >
             <RotateCcw className="w-4 h-4" />
             <span>Screen Another Image</span>
@@ -161,7 +169,7 @@ export function ResultCard({
 
           <button
             onClick={handleExportSummary}
-            className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-clinical-600 hover:bg-clinical-500 text-white rounded-xl text-xs font-semibold shadow-md shadow-clinical-600/30 transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-h-[44px]"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 bg-clinical-600 hover:bg-clinical-500 text-white rounded-xl text-xs font-semibold shadow-md shadow-clinical-600/30 transition-all duration-150 active:scale-[0.98] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-cyan-500 min-h-[46px]"
             title="Download formatted JSON report with date"
           >
             <Download className="w-4 h-4" />
