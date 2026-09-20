@@ -1,4 +1,5 @@
 {
+  "name": "ocularscreen-pwa",
   "headers": [
     {
       "source": "/(.*)",
