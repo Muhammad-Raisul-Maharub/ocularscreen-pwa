@@ -1,0 +1,14 @@
+{
+  "raw_candidate_count": 1344,
+  "exact_md5_exclusions": 373,
+  "phash_or_conflict_exclusions": 32,
+  "resolution_exclusions": 397,
+  "unique_exclusions_union": 800,
+  "clean_cohort_count": 544,
+  "class_counts": {
+    "Conjunctivitis": 388,
+    "Non_Conjunctivitis": 156
+  },
+  "md5_label_conflict_groups": 0,
+  "phash_conflict_pairs": 1
+}

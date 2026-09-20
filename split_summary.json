@@ -1,0 +1,18 @@
+{
+  "train_n": 380,
+  "val_n": 55,
+  "test_n": 109,
+  "train_class_counts": {
+    "Conjunctivitis": 271,
+    "Non_Conjunctivitis": 109
+  },
+  "val_class_counts": {
+    "Conjunctivitis": 39,
+    "Non_Conjunctivitis": 16
+  },
+  "test_class_counts": {
+    "Conjunctivitis": 78,
+    "Non_Conjunctivitis": 31
+  },
+  "split_level": "image-level; patient-level independence not verifiable for public repositories"
+}

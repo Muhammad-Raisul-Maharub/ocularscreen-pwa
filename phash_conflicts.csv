@@ -1,0 +1,2 @@
+path_a,class_a,path_b,class_b
+/kaggle/input/datasets/alisofiya/conjunctivitis/Dataset/healthy_eye/68.jpg,Non_Conjunctivitis,/kaggle/input/datasets/alisofiya/conjunctivitis/Dataset/infected_eye/171.jpeg,Conjunctivitis

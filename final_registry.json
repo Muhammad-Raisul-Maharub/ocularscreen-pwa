@@ -1,0 +1,22 @@
+{
+  "paper_title": "Edge-Oriented Binary Conjunctivitis Classification from Anterior-Segment Images: A Cross-Paradigm Deep Learning Benchmark",
+  "primary_model": "mobilenet_v3_small",
+  "secondary_model": "convnext_tiny",
+  "high_capacity_reference": "vit_base_patch16_224",
+  "reference_model": "mobilenet_v3_small",
+  "cohort": {
+    "n": 544,
+    "conjunctivitis": 388,
+    "non_conjunctivitis": 156
+  },
+  "split": {
+    "train": 380,
+    "validation": 55,
+    "test": 109
+  },
+  "test_used_for_tuning": false,
+  "test_used_for_threshold_selection": false,
+  "common_head": "BatchNorm1d(in_features) -> Linear(in_features,512) -> ReLU -> Dropout(0.5) -> Linear(512,256) -> Dropout(0.3) -> Linear(256,1)",
+  "onnx_fallback": false,
+  "physical_edge_device_test": false
+}

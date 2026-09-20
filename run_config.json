@@ -1,0 +1,49 @@
+{
+  "paper_title": "Edge-Oriented Binary Conjunctivitis Classification from Anterior-Segment Images: A Cross-Paradigm Deep Learning Benchmark",
+  "seed": 42,
+  "benchmark_models": [
+    "mobilenet_v3_small",
+    "mobilenet_v2",
+    "efficientnet_b0",
+    "densenet201",
+    "resnet50",
+    "vgg16",
+    "convnext_tiny",
+    "swin_tiny_patch4_window7_224",
+    "vit_base_patch16_224"
+  ],
+  "reference_model": "mobilenet_v3_small",
+  "batch_size": 32,
+  "drop_last": false,
+  "stage1": {
+    "epochs": 20,
+    "patience": 8,
+    "lr": 0.001
+  },
+  "stage2": {
+    "epochs": 15,
+    "patience": 8,
+    "lr": 1e-05
+  },
+  "weight_decay": 0.0001,
+  "focal_gamma": 2.0,
+  "profile_gpu": true,
+  "profile_pytorch_cpu": true,
+  "profile_onnx": true,
+  "strict_onnx": true,
+  "mobilenet_optimization_enabled": false,
+  "xai_enabled": false,
+  "versions": {
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torchvision": "0.25.0+cu128",
+    "timm": "1.0.26",
+    "albumentations": "2.0.8",
+    "numpy": "2.0.2",
+    "pandas": "2.3.3",
+    "opencv": "4.13.0",
+    "onnx": "1.22.0",
+    "onnxruntime": "1.30.0",
+    "device": "cuda"
+  }
+}

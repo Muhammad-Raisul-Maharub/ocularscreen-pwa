@@ -1,0 +1,5 @@
+case,test_idx,path,label
+Case 1: Conjunctivitis (High-Conf),10,/kaggle/working/dataset_cleaned/Conjunctivitis/datase_216.jpg,Conjunctivitis
+Case 2: Conjunctivitis (Near-Thresh),44,/kaggle/working/dataset_cleaned/Conjunctivitis/datase_427.jpg,Conjunctivitis
+Case 3: Non-Conjunctivitis (High-Conf Control),99,/kaggle/working/dataset_cleaned/Non_Conjunctivitis/datase_4.jpg,Non_Conjunctivitis
+Case 4: Non-Conjunctivitis (Near-Thresh Control),89,/kaggle/working/dataset_cleaned/Non_Conjunctivitis/datase_159.jpg,Non_Conjunctivitis
