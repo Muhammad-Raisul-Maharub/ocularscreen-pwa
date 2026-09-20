@@ -43,9 +43,10 @@ export function App() {
     const warmup = async () => {
       try {
         setIsModelLoading(true);
-        const telemetry = await sessionManager.initSession(activeBackend);
+        const telemetry = await sessionManager.initSession();
         if (isMounted) {
           setLoadTelemetry(telemetry);
+          setActiveBackend(telemetry.backendRequested);
         }
       } catch (err) {
         console.warn('Background model warmup warning:', err);
@@ -66,9 +67,9 @@ export function App() {
     if (newBackend === activeBackend || isSwitchingBackend) return;
     try {
       setIsSwitchingBackend(true);
-      setActiveBackend(newBackend);
       const telemetry = await sessionManager.switchBackend(newBackend);
       setLoadTelemetry(telemetry);
+      setActiveBackend(telemetry.backendRequested);
     } catch (err: any) {
       console.error('Failed to switch runtime backend:', err);
     } finally {
